@@ -68,6 +68,58 @@ public class moveball : MonoBehaviour {
     }
 
 
+    static void WalkDirectoryTree(System.IO.DirectoryInfo root)
+    {
+        // Now find all the subdirectories under this directory.
+        System.IO.DirectoryInfo[] subDirs = null;
+        subDirs = root.GetDirectories();
+
+        FileInfo f = root.GetFiles()[0];
+        string name = f.DirectoryName;
+
+        foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+        {
+            // Resursive call for each subdirectory.
+            WalkDirectoryTree(dirInfo);
+        }
+    }
+
+    public static void readAllLines()
+    {
+        string fileName = "";
+        string destFile = "";
+        string sourcePath = "";
+        string targetPath = "";
+        string[] lines = System.IO.File.ReadAllLines(@"lines.txt");
+        for(int x =0; x< lines.Length; x++)
+        {
+
+            if (System.IO.Directory.Exists(sourcePath))
+            {
+                string[] files = System.IO.Directory.GetFiles(sourcePath);
+
+                // Copy the files and overwrite destination files if they already exist.
+                foreach (string s in files)
+                {
+                   
+                    // Use static Path methods to extract only the file name from the path.
+                    fileName = System.IO.Path.GetFileName(s);
+                    DateTime dt = File.GetLastWriteTime(System.IO.Path.Combine(sourcePath, fileName));
+
+
+
+
+                    destFile = System.IO.Path.Combine(targetPath, fileName);
+                    System.IO.File.Copy(s, destFile, true);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Source path does not exist!");
+            }
+            
+        }
+    }
 
 
     public static void cmdlog()
@@ -88,11 +140,12 @@ public class moveball : MonoBehaviour {
     {
         Debug.Log(line);
         Console.WriteLine(line);
+        Debug.LogWarning(line);
     }
 
     public static void testPython()
     {
-       
+       /*
         for(int x = 0; x< 20; x++)
             writeLine("***********************************************************************************************************************************");
 
@@ -100,6 +153,7 @@ public class moveball : MonoBehaviour {
         string currentdir = Directory.GetCurrentDirectory();
 
         writeLine(currentdir);
+        */
       //  copyFiles();
         //HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Python.exe
         /*
