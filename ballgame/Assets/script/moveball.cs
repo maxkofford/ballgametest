@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 public class moveball : MonoBehaviour {
     public float speed;
-    public Text countText;
-    public Text winText;
+   // public Text countText;
+   // public Text winText;
 
     private Rigidbody rb;
     private int count;
@@ -15,7 +15,7 @@ public class moveball : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         count = 0;
         SetCountText();
-        winText.text = "";
+       // winText.text = "";
     }
 
     void FixedUpdate()
@@ -40,10 +40,10 @@ public class moveball : MonoBehaviour {
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
+       // countText.text = "Count: " + count.ToString();
         if (count >= 7)
         {
-            winText.text = "You Win!";
+           // winText.text = "You Win!";
         }
     }
 }
