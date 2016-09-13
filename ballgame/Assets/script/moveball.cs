@@ -22,8 +22,9 @@ public class moveball : MonoBehaviour {
 
     public static void testPython()
     {
-        Debug.Log("*********************************TEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSTTTTTTTTTTTTTTTTT");
-
+        for(int x = 0; x< 20; x++)
+        Debug.Log("***********************************************************************************************************************************");
+        
         Debug.Log(Environment.OSVersion.ToString());
 
 
