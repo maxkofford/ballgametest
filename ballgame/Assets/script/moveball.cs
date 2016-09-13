@@ -237,7 +237,7 @@ public class moveball : MonoBehaviour {
         Debug.LogWarning(line);
     }
 
-    public static void testPython()
+    public static void testPython(string exportpath)
     {
        /*
         for(int x = 0; x< 20; x++)
@@ -279,7 +279,7 @@ public class moveball : MonoBehaviour {
 
     void Start()
     {
-        testPython();
+        testPython("");
 
         rb = GetComponent<Rigidbody>();
         count = 0;
