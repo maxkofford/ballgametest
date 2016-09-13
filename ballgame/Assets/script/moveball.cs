@@ -1,41 +1,51 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 //using UnityEngine.UI;
 
 public class moveball : MonoBehaviour {
 
-    public static void testPython()
+    public static void cmdlog()
     {
-        Debug.Log("*********************************TEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSTTTTTTTTTTTTTTTTT");
-        
         System.Diagnostics.Process process = new System.Diagnostics.Process();
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
         startInfo.FileName = "cmd.exe";
-        startInfo.Arguments = "/C copy /b Image1.jpg + Archive.rar Image2.jpg";
+        startInfo.Arguments = "";
         process.StartInfo = startInfo;
         process.Start();
-        string output = p.StandardOutput.ReadToEnd();
- p.WaitForExit();
+        string output = process.StandardOutput.ReadToEnd();
+        process.WaitForExit();
 
         Debug.Log(output);
- /*
+    }
 
-        // Start the child process.
- Process p = new Process();
- // Redirect the output stream of the child process.
- p.StartInfo.UseShellExecute = false;
- p.StartInfo.RedirectStandardOutput = true;
- p.StartInfo.FileName = "YOURBATCHFILE.bat";
- p.Start();
- // Do not wait for the child process to exit before
- // reading to the end of its redirected stream.
- // p.WaitForExit();
- // Read the output stream first and then wait.
- string output = p.StandardOutput.ReadToEnd();
- p.WaitForExit();
+    public static void testPython()
+    {
+        Debug.Log("*********************************TEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSTTTTTTTTTTTTTTTTT");
 
-        */
+        Debug.Log(Environment.OSVersion.ToString());
+
+
+
+        //HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Python.exe
+        /*
+
+               // Start the child process.
+        Process p = new Process();
+        // Redirect the output stream of the child process.
+        p.StartInfo.UseShellExecute = false;
+        p.StartInfo.RedirectStandardOutput = true;
+        p.StartInfo.FileName = "YOURBATCHFILE.bat";
+        p.Start();
+        // Do not wait for the child process to exit before
+        // reading to the end of its redirected stream.
+        // p.WaitForExit();
+        // Read the output stream first and then wait.
+        string output = p.StandardOutput.ReadToEnd();
+        p.WaitForExit();
+
+               */
     }
 
 
