@@ -75,6 +75,7 @@
     <Compile Include="Assets\script\Rotator.cs" />
     <Compile Include="Assets\script\cameracontroller.cs" />
     <Compile Include="Assets\script\moveball.cs" />
+    <Compile Include="Assets\script\testCalled.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
