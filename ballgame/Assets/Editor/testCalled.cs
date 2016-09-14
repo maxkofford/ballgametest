@@ -102,7 +102,7 @@ namespace CloudCall
             DirectoryInfo[] dirs = dir.GetDirectories();
             foreach (DirectoryInfo curdir in dirs)
             {
-                writeLine("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN " + dir + " is " + "curdir");
+                writeLine("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN " + dir + " is " + curdir);
             }
         }
         /*
