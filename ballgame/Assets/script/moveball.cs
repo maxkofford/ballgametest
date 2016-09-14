@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.IO;
+
 //using UnityEngine.UI;
 
 public class moveball : MonoBehaviour {
@@ -222,19 +223,29 @@ public class moveball : MonoBehaviour {
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
         startInfo.FileName = "cmd.exe";
-        startInfo.Arguments = "";
+        startInfo.Arguments = "python --version";
         process.StartInfo = startInfo;
         process.Start();
         string output = process.StandardOutput.ReadToEnd();
         process.WaitForExit();
 
-        Debug.Log(output);
+        writeLine(output);
     }
     public static void writeLine(string line)
     {
         Debug.Log(line);
         Console.WriteLine(line);
         Debug.LogWarning(line);
+    }
+    public static void wrtEnv()
+    {
+        for (int x = 0; x < 20; x++)
+            writeLine("***********************************************************************************************************************************");
+
+        writeLine(Environment.OSVersion.ToString());
+        string currentdir = Directory.GetCurrentDirectory();
+
+        writeLine(currentdir);
     }
 
     public static void testPython(string exportpath)
@@ -279,7 +290,7 @@ public class moveball : MonoBehaviour {
 
     void Start()
     {
-        testPython("");
+        
 
         rb = GetComponent<Rigidbody>();
         count = 0;
