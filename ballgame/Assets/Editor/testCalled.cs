@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
-using UnityEngine;
-using System.Collections;
 using System;
 using System.IO;
 using HoloToolkit.Unity;
 using System.Threading;
 
-namespace test
+
+namespace CloudCall
 {
-    public class testCalled
+    public class Called
     {
         /*
         [PostProcessBuildAttribute]
@@ -104,7 +101,7 @@ namespace test
             {
                 return;
             }
-            string[] buildList = Directory.GetDirectories(BuildDeployPrefs.AbsoluteBuildDirectory);
+          //  string[] buildList = Directory.GetDirectories(BuildDeployPrefs.AbsoluteBuildDirectory);
         }
 
         public static void readAllTargets()
@@ -216,7 +213,7 @@ namespace test
 
                         // Use static Path methods to extract only the file name from the path.
                         fileName = System.IO.Path.GetFileName(s);
-                        DateTime dt = File.GetLastWriteTime(System.IO.Path.Combine(sourcePath, fileName));
+                        //DateTime dt = File.GetLastWriteTime(System.IO.Path.Combine(sourcePath, fileName));
 
 
 
@@ -301,8 +298,8 @@ namespace test
             System.IO.DirectoryInfo[] subDirs = null;
             subDirs = root.GetDirectories();
 
-            FileInfo f = root.GetFiles()[0];
-            string name = f.DirectoryName;
+          //  FileInfo f = root.GetFiles()[0];
+           // string name = f.DirectoryName;
 
             foreach (System.IO.DirectoryInfo dirInfo in subDirs)
             {
