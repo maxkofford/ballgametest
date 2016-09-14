@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.IO;
+using HoloToolkit.Unity;
+using System.Threading;
 
 namespace test
 {
@@ -23,6 +25,7 @@ namespace test
         public static void CallMe(string exportpath)
         {
             wrtEnv();
+            writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + exportpath);
             writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             cmdloglin();
         }
@@ -30,10 +33,13 @@ namespace test
 
         public static void cmdloglin()
         {
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = "python --version", };
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = "-c python --version", };
             System.Diagnostics.Process proc = new System.Diagnostics.Process() { StartInfo = startInfo, };
+            proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             proc.Start();
             string output = proc.StandardOutput.ReadToEnd();
+            Thread.Sleep(5000);
+            proc.Close();
             proc.WaitForExit();
 
             writeLine(output);
@@ -60,17 +66,46 @@ namespace test
         }
         public static void wrtEnv()
         {
-            for (int x = 0; x < 20; x++)
-                writeLine("***********************************************************************************************************************************");
+            try
+            {
+                for (int x = 0; x < 20; x++)
+                    writeLine("***********************************************************************************************************************************");
 
-            writeLine(Environment.OSVersion.ToString());
-            string currentdir = Directory.GetCurrentDirectory();
-            writeLine("DATA PATH---------------------:" + Application.dataPath);
+                writeLine(Environment.OSVersion.ToString());
+                string currentdir = Directory.GetCurrentDirectory();
+                writeLine("CURRENT DIR--------------------:" + currentdir);
+                writeLine("DATA PATH---------------------:" + Application.dataPath);
+            }
+            catch (Exception e)
+                {
+                writeLine("ERROR:"  + e.ToString());
+            }
 
-            writeLine("CURRENT DIR--------------------:" + currentdir);
+            
         }
+        public static void buildHolo()
+        {
 
+            string appName = "holoBuild";
+            // First build SLN
+            if (!BuildDeployTools.BuildSLN(BuildDeployPrefs.BuildDirectory, false))
+            {
+                return;
+            }
 
+            // Next, APPX
+            if (!BuildDeployTools.BuildAppxFromSolution(
+                appName,
+                BuildDeployPrefs.MsBuildVersion,
+                BuildDeployPrefs.ForceRebuild,
+                BuildDeployPrefs.BuildConfig,
+                BuildDeployPrefs.BuildDirectory,
+                BuildDeployPrefs.IncrementBuildVersion))
+            {
+                return;
+            }
+            string[] buildList = Directory.GetDirectories(BuildDeployPrefs.AbsoluteBuildDirectory);
+        }
 
         public static void readAllTargets()
 
