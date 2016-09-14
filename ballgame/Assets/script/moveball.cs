@@ -20,7 +20,8 @@ public class moveball : MonoBehaviour {
 
     void Start()
     {
-        
+        //CloudCallerMain.wrtEnv();
+       // CloudCallerMain.readAllTargets("testMover.txt");
 
         rb = GetComponent<Rigidbody>();
         count = 0;

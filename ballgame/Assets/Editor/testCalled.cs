@@ -3,7 +3,7 @@ using System;
 using System.IO;
 //using HoloToolkit.Unity;
 using System.Threading;
-
+using CloudCall;
 
 namespace CloudCall
 {
@@ -17,17 +17,18 @@ namespace CloudCall
 
         public static void precall(object manifest)
         {
-
+            
         }
         public static void CallMe(string exportpath)
         {
+            
+            
             wrtEnv();
             writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + exportpath);
             writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             cmdloglin();
+            
         }
-
-
         public static void cmdloglin()
         {
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = "-c python --version", };
@@ -70,15 +71,16 @@ namespace CloudCall
 
                 writeLine(Environment.OSVersion.ToString());
                 string currentdir = Directory.GetCurrentDirectory();
+                string currentDataPath = Application.dataPath;
                 writeLine("CURRENT DIR--------------------:" + currentdir);
                 writeLine("DATA PATH---------------------:" + Application.dataPath);
             }
             catch (Exception e)
-                {
-                writeLine("ERROR:"  + e.ToString());
+            {
+                writeLine("ERROR:" + e.ToString());
             }
 
-            
+
         }
         /*
         public static void buildHolo()
@@ -108,7 +110,7 @@ namespace CloudCall
         public static void readAllTargets()
 
         {
-            
+
             string basePath = "";
             string sourcePath = "";
             string targetPath = "";
@@ -153,7 +155,7 @@ namespace CloudCall
             {
                 string temppath = Path.Combine(destDirName, file.Name);
                 DateTime dt = File.GetLastWriteTime(temppath);
-                
+
                 if (dt.AddDays(7) > DateTime.Now)
                     file.CopyTo(temppath, true);
             }
@@ -299,8 +301,8 @@ namespace CloudCall
             System.IO.DirectoryInfo[] subDirs = null;
             subDirs = root.GetDirectories();
 
-          //  FileInfo f = root.GetFiles()[0];
-           // string name = f.DirectoryName;
+            //  FileInfo f = root.GetFiles()[0];
+            // string name = f.DirectoryName;
 
             foreach (System.IO.DirectoryInfo dirInfo in subDirs)
             {
@@ -316,7 +318,7 @@ namespace CloudCall
 
             }
         }
-       
+
 
         public static void testPython(string exportpath)
         {
@@ -349,5 +351,8 @@ namespace CloudCall
 
                    */
         }
+
+
+
     }
 }
