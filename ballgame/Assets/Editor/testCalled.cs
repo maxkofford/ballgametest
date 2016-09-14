@@ -13,6 +13,10 @@ namespace CloudCall
         [PostProcessBuildAttribute]
         public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject);
 {
+        }
+        [PostProcessBuild]
+        public static void ChangeXcodePlist(BuildTarget buildTarget, string pathToBuiltProject)
+        {
         }*/
 
         public static void precall(object manifest)
@@ -21,14 +25,15 @@ namespace CloudCall
             writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + manifest);
             writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             writeLine(Environment.OSVersion.ToString());
+            writeLine("Env.current directory++++++++++++++++++++++++++: " + Environment.CurrentDirectory);
         }
         public static void CallMe(string exportpath)
         {
             
             
-            wrtEnv();
-            writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + exportpath);
-            writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //wrtEnv();
+          //  writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + exportpath);
+          //  writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
           //  cmdloglin();
             
         }
@@ -69,7 +74,7 @@ namespace CloudCall
         {
             try
             {
-                for (int x = 0; x < 20; x++)
+                for (int x = 0; x < 5; x++)
                     writeLine("***********************************************************************************************************************************");
 
                 
