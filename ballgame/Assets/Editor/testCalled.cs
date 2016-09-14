@@ -26,6 +26,12 @@ namespace CloudCall
             writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             writeLine(Environment.OSVersion.ToString());
             writeLine("Env.current directory++++++++++++++++++++++++++: " + Environment.CurrentDirectory);
+            string curdir = Environment.CurrentDirectory;
+            printDirs(curdir);
+            DirectoryInfo dir = new DirectoryInfo(curdir);
+            writeLine(dir.Parent.ToString());
+            writeLine(dir.Parent.FullName);
+            printDirs(dir.Parent.FullName); 
         }
         public static void CallMe(string exportpath)
         {
@@ -89,6 +95,15 @@ namespace CloudCall
             }
 
 
+        }
+        public static void printDirs(string dirname)
+        {
+            DirectoryInfo dir = new DirectoryInfo(dirname);
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            foreach (DirectoryInfo curdir in dirs)
+            {
+                writeLine("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN " + dir + " is " + "curdir");
+            }
         }
         /*
         public static void buildHolo()
