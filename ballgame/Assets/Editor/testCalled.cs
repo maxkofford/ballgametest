@@ -10,20 +10,194 @@ namespace test
 {
     public class testCalled
     {
+        /*
+        [PostProcessBuildAttribute]
+        public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject);
+{
+        }*/
+
         public static void precall(object manifest)
         {
 
         }
         public static void CallMe(string exportpath)
         {
-           wrtEnv();
+            wrtEnv();
+            writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             cmdloglin();
         }
 
 
+        public static void cmdloglin()
+        {
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = "python --version", };
+            System.Diagnostics.Process proc = new System.Diagnostics.Process() { StartInfo = startInfo, };
+            proc.Start();
+            string output = proc.StandardOutput.ReadToEnd();
+            proc.WaitForExit();
+
+            writeLine(output);
+        }
+        public static void cmdlogWin()
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "python --version";
+            process.StartInfo = startInfo;
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            writeLine(output);
+        }
+        public static void writeLine(string line)
+        {
+            //Debug.Log(line);
+            Console.WriteLine(line);
+            // Debug.LogWarning(line);
+        }
+        public static void wrtEnv()
+        {
+            for (int x = 0; x < 20; x++)
+                writeLine("***********************************************************************************************************************************");
+
+            writeLine(Environment.OSVersion.ToString());
+            string currentdir = Directory.GetCurrentDirectory();
+            writeLine("DATA PATH---------------------:" + Application.dataPath);
+
+            writeLine("CURRENT DIR--------------------:" + currentdir);
+        }
 
 
 
+        public static void readAllTargets()
+
+        {
+            
+            string basePath = "";
+            string sourcePath = "";
+            string targetPath = "";
+            string[] lines = System.IO.File.ReadAllLines(@"viveImport.txt");
+            for (int x = 0; x < lines.Length; x += 2)
+            {
+                sourcePath = basePath += lines[x];
+                targetPath = basePath += lines[x + 1];
+                DirectoryCopy(sourcePath, targetPath, true);
+            }
+        }
+
+
+        /// <summary>
+        /// The microsoft directory copy edited to check last changes on source files
+        /// </summary>
+        /// <param name="sourceDirName"></param>
+        /// <param name="destDirName"></param>
+        /// <param name="copySubDirs"></param>
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                DateTime dt = File.GetLastWriteTime(temppath);
+                
+                if (dt.AddDays(7) > DateTime.Now)
+                    file.CopyTo(temppath, true);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
+        }
+
+        /// <summary>
+        /// my initial copy directory not completed though
+        /// </summary>
+        /// <param name="currentdir"></param>
+        /// <param name="targetdir"></param>
+        public static void copyCurrentDir(string currentdir, string targetdir)
+        {
+            string fileName = "";
+            string destFile = "";
+            string sourcePath = currentdir;
+            string targetPath = targetdir;
+
+
+
+            if (!System.IO.Directory.Exists(targetPath))
+            {
+                System.IO.Directory.CreateDirectory(targetPath);
+            }
+
+
+
+
+
+            if (System.IO.Directory.Exists(sourcePath))
+            {
+                string[] files = System.IO.Directory.GetFiles(sourcePath);
+                string[] files2 = System.IO.Directory.GetFiles(targetPath);
+
+
+                //check to make sure it exists
+                if (files2.Length < files.Length)
+
+                {
+                    foreach (string s in files)
+                    {
+                        fileName = System.IO.Path.GetFileName(s);
+                        destFile = System.IO.Path.Combine(targetPath, fileName);
+                        System.IO.File.Copy(s, destFile, true);
+                    }
+                    // Copy the files and overwrite destination files if they already exist.
+                    foreach (string s in files)
+                    {
+
+                        // Use static Path methods to extract only the file name from the path.
+                        fileName = System.IO.Path.GetFileName(s);
+                        DateTime dt = File.GetLastWriteTime(System.IO.Path.Combine(sourcePath, fileName));
+
+
+
+
+                        destFile = System.IO.Path.Combine(targetPath, fileName);
+                        System.IO.File.Copy(s, destFile, true);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Source path does not exist!");
+                }
+
+
+            }
+        }
         static void copySingleFile()
         {
             string fileName = "test.txt";
@@ -109,172 +283,7 @@ namespace test
 
             }
         }
-        public static void readAllTargets()
-
-        {
-            //Application.DataPath
-            string basePath = "";
-            string sourcePath = "";
-            string targetPath = "";
-            string[] lines = System.IO.File.ReadAllLines(@"lines.txt");
-            for (int x = 0; x < lines.Length; x += 2)
-            {
-                sourcePath = basePath += lines[x];
-                targetPath = basePath += lines[x + 1];
-                DirectoryCopy(sourcePath, targetPath, true);
-            }
-        }
-
-
-        /// <summary>
-        /// The microsoft directory copy edited to check last changes on source files
-        /// </summary>
-        /// <param name="sourceDirName"></param>
-        /// <param name="destDirName"></param>
-        /// <param name="copySubDirs"></param>
-        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
-        {
-            // Get the subdirectories for the specified directory.
-            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-
-            if (!dir.Exists)
-            {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
-            }
-
-            DirectoryInfo[] dirs = dir.GetDirectories();
-            // If the destination directory doesn't exist, create it.
-            if (!Directory.Exists(destDirName))
-            {
-                Directory.CreateDirectory(destDirName);
-            }
-
-            // Get the files in the directory and copy them to the new location.
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                string temppath = Path.Combine(destDirName, file.Name);
-                DateTime dt = File.GetLastWriteTime(temppath);
-                if (dt.Month + 1 > DateTime.Now.Month || dt.Year > DateTime.Now.Year)
-                    file.CopyTo(temppath, true);
-            }
-
-            // If copying subdirectories, copy them and their contents to new location.
-            if (copySubDirs)
-            {
-                foreach (DirectoryInfo subdir in dirs)
-                {
-                    string temppath = Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
-                }
-            }
-        }
-
-        /// <summary>
-        /// my initial copy directory not completed though
-        /// </summary>
-        /// <param name="currentdir"></param>
-        /// <param name="targetdir"></param>
-        public static void copyCurrentDir(string currentdir, string targetdir)
-        {
-            string fileName = "";
-            string destFile = "";
-            string sourcePath = currentdir;
-            string targetPath = targetdir;
-
-
-
-            if (!System.IO.Directory.Exists(targetPath))
-            {
-                System.IO.Directory.CreateDirectory(targetPath);
-            }
-
-
-
-
-
-            if (System.IO.Directory.Exists(sourcePath))
-            {
-                string[] files = System.IO.Directory.GetFiles(sourcePath);
-                string[] files2 = System.IO.Directory.GetFiles(targetPath);
-
-
-                //check to make sure it exists
-                if (files2.Length < files.Length)
-
-                {
-                    foreach (string s in files)
-                    {
-                        fileName = System.IO.Path.GetFileName(s);
-                        destFile = System.IO.Path.Combine(targetPath, fileName);
-                        System.IO.File.Copy(s, destFile, true);
-                    }
-                    // Copy the files and overwrite destination files if they already exist.
-                    foreach (string s in files)
-                    {
-
-                        // Use static Path methods to extract only the file name from the path.
-                        fileName = System.IO.Path.GetFileName(s);
-                        DateTime dt = File.GetLastWriteTime(System.IO.Path.Combine(sourcePath, fileName));
-
-
-
-
-                        destFile = System.IO.Path.Combine(targetPath, fileName);
-                        System.IO.File.Copy(s, destFile, true);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Source path does not exist!");
-                }
-
-
-            }
-        }
-
-        public static void cmdloglin()
-        {
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = "python --version", };
-            System.Diagnostics.Process proc = new System.Diagnostics.Process() { StartInfo = startInfo, };
-            proc.Start();
-            string output = proc.StandardOutput.ReadToEnd();
-            proc.WaitForExit();
-
-            writeLine(output);
-        }
-        public static void cmdlogWin()
-        {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "python --version";
-            process.StartInfo = startInfo;
-            process.Start();
-            string output = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-
-            writeLine(output);
-        }
-        public static void writeLine(string line)
-        {
-            //Debug.Log(line);
-            Console.WriteLine(line);
-           // Debug.LogWarning(line);
-        }
-        public static void wrtEnv()
-        {
-            for (int x = 0; x < 20; x++)
-                writeLine("***********************************************************************************************************************************");
-
-            writeLine(Environment.OSVersion.ToString());
-            string currentdir = Directory.GetCurrentDirectory();
-
-            writeLine(currentdir);
-        }
+       
 
         public static void testPython(string exportpath)
         {
