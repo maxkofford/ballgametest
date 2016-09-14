@@ -20,6 +20,8 @@
 \Unity_Projects\Demo_SteamVR\Assets\ShaderForge
 \Shared_Assets\Common\SimpleLOD
 \Unity_Projects\Demo_SteamVR\Assets\SimpleLOD\SimpleLOD
+\Shared_Assets\SteamVR\SteamVR
+\Unity_Projects\Demo_SteamVR\Assets\SteamVR
 \Shared_Assets\Common\Strata
 \Unity_Projects\Demo_SteamVR\Assets\Strata_Assets\Common
 \Shared_Assets\SteamVR\Strata

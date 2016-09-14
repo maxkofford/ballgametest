@@ -17,7 +17,9 @@ namespace CloudCall
 
         public static void precall(object manifest)
         {
-            
+            wrtEnv();
+            writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + manifest);
+            writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         }
         public static void CallMe(string exportpath)
         {

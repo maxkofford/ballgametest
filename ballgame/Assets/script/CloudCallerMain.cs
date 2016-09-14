@@ -14,8 +14,9 @@ public class CloudCallerMain
         public static void readAllTargets(string targetFile)
 
         {
-
+        string otherdir = @"D:\githubrepos\Demo_Project";
             string basePath = Directory.GetCurrentDirectory();
+        basePath = otherdir;
             string sourcePath = "";
             string targetPath = "";
             string[] lines = System.IO.File.ReadAllLines(targetFile);
@@ -24,8 +25,8 @@ public class CloudCallerMain
                 sourcePath = basePath + lines[x];
             
                 targetPath = basePath + lines[x + 1];
-            writeLine(sourcePath);
-            writeLine(targetPath);
+            writeLine("------------------Now copying " + sourcePath + " to " + targetPath );
+           
             DirectoryCopy(sourcePath, targetPath, true);
             }
         }
