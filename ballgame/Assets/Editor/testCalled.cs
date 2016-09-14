@@ -20,6 +20,7 @@ namespace CloudCall
             wrtEnv();
             writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + manifest);
             writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            writeLine(Environment.OSVersion.ToString());
         }
         public static void CallMe(string exportpath)
         {
@@ -71,7 +72,7 @@ namespace CloudCall
                 for (int x = 0; x < 20; x++)
                     writeLine("***********************************************************************************************************************************");
 
-                writeLine(Environment.OSVersion.ToString());
+                
                 string currentdir = Directory.GetCurrentDirectory();
                 string currentDataPath = Application.dataPath;
                 writeLine("CURRENT DIR--------------------:" + currentdir);
