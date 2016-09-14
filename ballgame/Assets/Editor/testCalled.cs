@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.IO;
-using HoloToolkit.Unity;
+//using HoloToolkit.Unity;
 using System.Threading;
 
 
@@ -80,6 +80,7 @@ namespace CloudCall
 
             
         }
+        /*
         public static void buildHolo()
         {
 
@@ -103,7 +104,7 @@ namespace CloudCall
             }
           //  string[] buildList = Directory.GetDirectories(BuildDeployPrefs.AbsoluteBuildDirectory);
         }
-
+        */
         public static void readAllTargets()
 
         {
