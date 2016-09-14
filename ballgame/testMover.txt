@@ -1,2 +1,6 @@
 \Assets\source
 \Assets\target
+\Assets\source
+\Assets\target2
+\Assets\source\sourceinner
+\Assets\target3

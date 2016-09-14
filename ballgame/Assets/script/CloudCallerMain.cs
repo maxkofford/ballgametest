@@ -21,9 +21,9 @@ public class CloudCallerMain
             string[] lines = System.IO.File.ReadAllLines(targetFile);
             for (int x = 0; x < lines.Length; x += 2)
             {
-                sourcePath = basePath += lines[x];
+                sourcePath = basePath + lines[x];
             
-                targetPath = basePath += lines[x + 1];
+                targetPath = basePath + lines[x + 1];
             writeLine(sourcePath);
             writeLine(targetPath);
             DirectoryCopy(sourcePath, targetPath, true);
@@ -56,14 +56,17 @@ public class CloudCallerMain
                 Directory.CreateDirectory(destDirName);
             }
 
-            // Get the files in the directory and copy them to the new location.
+        // Get the files in the directory and copy them to the new location.
+        int spot = 0;
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
+                spot++;
+                writeLine("file " + spot + " :" + file.ToString());
                 string temppath = Path.Combine(destDirName, file.Name);
                 DateTime dt = File.GetLastWriteTime(temppath);
-
-                if (dt.AddDays(7) > DateTime.Now)
+            
+                //if (dt.AddDays(7).CompareTo( DateTime.Now)> 0)
                     file.CopyTo(temppath, true);
             }
 

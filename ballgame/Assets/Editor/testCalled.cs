@@ -26,7 +26,7 @@ namespace CloudCall
             wrtEnv();
             writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + exportpath);
             writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            cmdloglin();
+          //  cmdloglin();
             
         }
         public static void cmdloglin()

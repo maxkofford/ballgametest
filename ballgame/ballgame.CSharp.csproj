@@ -79,6 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\source\sourceinner\atext.txt" />
+    <None Include="Assets\source\sourceinner2\atext2.txt" />
+    <None Include="Assets\source\sourceinner2\innerinner\atext3 - Copy (2).txt" />
+    <None Include="Assets\source\sourceinner2\innerinner\atext3 - Copy (3).txt" />
+    <None Include="Assets\source\sourceinner2\innerinner\atext3 - Copy.txt" />
+    <None Include="Assets\source\sourceinner2\innerinner\atext3.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
