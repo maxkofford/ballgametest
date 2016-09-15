@@ -125,17 +125,25 @@ namespace CloudCall
 
         {
             writeLine("STARTING READ.............................");
-            
-            
-            string sourcePath = "";
-            string targetPath = "";
-            string[] lines = System.IO.File.ReadAllLines(target);
-            for (int x = 0; x < lines.Length; x += 2)
+
+            try
             {
-                sourcePath = basePath + lines[x];
-                targetPath = basePath + lines[x + 1];
-                writeLine("------------------Now copying " + sourcePath + " to " + targetPath);
-                DirectoryCopy(sourcePath, targetPath, true);
+                string sourcePath = "";
+                string targetPath = "";
+                writeLine("CheckingExistance of............................." + basePath + '/' + target);
+                File.Exists(basePath + '/' + target);
+                string[] lines = System.IO.File.ReadAllLines(basePath + '/' + target);
+                for (int x = 0; x < lines.Length; x += 2)
+                {
+                    sourcePath = basePath + lines[x];
+                    targetPath = basePath + lines[x + 1];
+                    writeLine("------------------Now copying " + sourcePath + " to " + targetPath);
+                    DirectoryCopy(sourcePath, targetPath, true);
+                }
+            }
+            catch(Exception e)
+            {
+                writeLine(e.ToString() +  " :     ================================ "  + e.Message);
             }
         }
 
