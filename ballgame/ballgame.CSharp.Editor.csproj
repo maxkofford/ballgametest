@@ -114,6 +114,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\BuildDeployPortal.cs" />
+    <Compile Include="Assets\Editor\BuildDeployPrefs.cs" />
+    <Compile Include="Assets\Editor\BuildDeployTools.cs" />
+    <Compile Include="Assets\Editor\BuildDeployWindow.cs" />
+    <Compile Include="Assets\Editor\BuildSLNUtilities.cs" />
+    <Compile Include="Assets\Editor\CloudRunner.cs" />
+    <Compile Include="Assets\Editor\HoloToolkitCommands.cs" />
+    <Compile Include="Assets\Editor\XdeGuestLocator.cs" />
     <Compile Include="Assets\Editor\testCalled.cs" />
   </ItemGroup>
   <ItemGroup>

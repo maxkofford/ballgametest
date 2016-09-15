@@ -7,33 +7,41 @@ using CloudCall;
 
 namespace CloudCall
 {
-    public class Called2
+    public class Called
     {
         /*
         [PostProcessBuildAttribute]
         public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject);
 {
-        }
-        [PostProcessBuild]
-        public static void ChangeXcodePlist(BuildTarget buildTarget, string pathToBuiltProject)
-        {
         }*/
 
         public static void precall(object manifest)
         {
             wrtEnv();
-            writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + manifest);
+            //writeLine("MANIFEST?++++++++++++++++++++++++++++++" + manifest);
+
+
+            string curdir = Environment.CurrentDirectory;
+
+            DirectoryInfo dir = new DirectoryInfo(curdir);
+
+            string basePath = dir.Parent.Parent.FullName;
+            //string basePath = Directory.GetCurrentDirectory();
+            writeLine("++++++++++++++++++++++++++++++++++++++++++++++++CURRENT DIRECTORY: " + basePath);
+            writeLine("++++++++++++++++++++++++++++++++++++++++++++++++regular DIRECTORY: " + Environment.CurrentDirectory);
+            basePath = Environment.CurrentDirectory;
+            readAllTargets(@"viveImport.txt",basePath);
 
         }
         public static void CallMe(string exportpath)
         {
-            
-            
-            //wrtEnv();
-          //  writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + exportpath);
-          //  writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-          //  cmdloglin();
-            
+
+
+            wrtEnv();
+            writeLine("EXPORT PATH++++++++++++++++++++++++++++++" + exportpath);
+            writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //  cmdloglin();
+
         }
         public static void cmdloglin()
         {
@@ -72,41 +80,21 @@ namespace CloudCall
         {
             try
             {
-                for (int x = 0; x < 5; x++)
+                for (int x = 0; x < 20; x++)
                     writeLine("***********************************************************************************************************************************");
 
-                
+                writeLine(Environment.OSVersion.ToString());
                 string currentdir = Directory.GetCurrentDirectory();
                 string currentDataPath = Application.dataPath;
                 writeLine("CURRENT DIR--------------------:" + currentdir);
                 writeLine("DATA PATH---------------------:" + Application.dataPath);
-
             }
             catch (Exception e)
             {
                 writeLine("ERROR:" + e.ToString());
             }
-            
-            writeLine("FINISHED WITH ENV+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            writeLine(Environment.OSVersion.ToString());
-            writeLine("Env.current directory++++++++++++++++++++++++++: " + Environment.CurrentDirectory);
-            string curdir = Environment.CurrentDirectory;
-            printDirs(curdir);
-            DirectoryInfo dir = new DirectoryInfo(curdir);
-            writeLine(dir.Parent.ToString());
-            writeLine(dir.Parent.FullName);
-            printDirs(dir.Parent.FullName);
 
 
-        }
-        public static void printDirs(string dirname)
-        {
-            DirectoryInfo dir = new DirectoryInfo(dirname);
-            DirectoryInfo[] dirs = dir.GetDirectories();
-            foreach (DirectoryInfo curdir in dirs)
-            {
-                writeLine("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN " + dir + " is " + curdir);
-            }
         }
         /*
         public static void buildHolo()
@@ -133,18 +121,20 @@ namespace CloudCall
           //  string[] buildList = Directory.GetDirectories(BuildDeployPrefs.AbsoluteBuildDirectory);
         }
         */
-        public static void readAllTargets()
+        public static void readAllTargets(string target,string basePath)
 
         {
-
-            string basePath = "";
+            writeLine("STARTING READ.............................");
+            
+            
             string sourcePath = "";
             string targetPath = "";
-            string[] lines = System.IO.File.ReadAllLines(@"viveImport.txt");
+            string[] lines = System.IO.File.ReadAllLines(target);
             for (int x = 0; x < lines.Length; x += 2)
             {
-                sourcePath = basePath += lines[x];
-                targetPath = basePath += lines[x + 1];
+                sourcePath = basePath + lines[x];
+                targetPath = basePath + lines[x + 1];
+                writeLine("------------------Now copying " + sourcePath + " to " + targetPath);
                 DirectoryCopy(sourcePath, targetPath, true);
             }
         }
@@ -182,7 +172,7 @@ namespace CloudCall
                 string temppath = Path.Combine(destDirName, file.Name);
                 DateTime dt = File.GetLastWriteTime(temppath);
 
-                if (dt.AddDays(7) > DateTime.Now)
+              //  if (dt.AddDays(7) > DateTime.Now)
                     file.CopyTo(temppath, true);
             }
 

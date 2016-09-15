@@ -15,7 +15,13 @@ public class CloudCallerMain
 
         {
         string otherdir = @"D:\githubrepos\Demo_Project";
-            string basePath = Directory.GetCurrentDirectory();
+
+        string curdir = Environment.CurrentDirectory;
+       
+        DirectoryInfo dir = new DirectoryInfo(curdir);
+
+        string basePath = dir.Parent.Parent.FullName;
+
         basePath = otherdir;
             string sourcePath = "";
             string targetPath = "";
