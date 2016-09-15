@@ -29,7 +29,7 @@ namespace CloudCall
             //string basePath = Directory.GetCurrentDirectory();
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++CURRENT DIRECTORY: " + basePath);
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++regular DIRECTORY: " + Environment.CurrentDirectory);
-            basePath = Environment.CurrentDirectory;
+            basePath =dir.Parent.FullName;
             readAllTargets(@"viveImport.txt",basePath);
 
         }
