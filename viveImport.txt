@@ -1,0 +1,4 @@
+/testomatic/
+/ballgame/test1
+/testomatic
+/ballgame/test2
