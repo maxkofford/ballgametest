@@ -136,10 +136,10 @@ namespace CloudCall
                 writeLine("post Read line===========================");
                 for (int x = 0; x < lines.Length; x += 2)
                 {
-                    writeLine("starting " + x + " ===========================");
+                    writeLine("starting " + x + " =========================== " + lines.Length);
                     sourcePath = basePath + lines[x];
                     targetPath = basePath + lines[x + 1];
-                    writeLine("------------------Now copying " + sourcePath + " to " + targetPath);
+                    writeLine("Now copying " + sourcePath + " to " + targetPath + "=========================");
                     DirectoryCopy(sourcePath, targetPath, true);
                 }
             }
@@ -158,6 +158,7 @@ namespace CloudCall
         /// <param name="copySubDirs"></param>
         private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
+            writeLine("DirectoryCopyStart"+ "=============================");
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
