@@ -17,6 +17,10 @@ namespace CloudCall
 
         public static void precall(object manifest)
         {
+
+
+
+            cmdloglin();
             wrtEnv();
             //writeLine("MANIFEST?++++++++++++++++++++++++++++++" + manifest);
 
@@ -45,10 +49,12 @@ namespace CloudCall
         }
         public static void cmdloglin()
         {
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = "-c python --version", };
+            writeLine("++++++++++++++++++++++++++++++++++++++++++++++++PREBASH");
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = " --version", };
             System.Diagnostics.Process proc = new System.Diagnostics.Process() { StartInfo = startInfo, };
             proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             proc.Start();
+            writeLine("++++++++++++++++++++++++++++++++++++++++++++++++POSTBASH");
             string output = proc.StandardOutput.ReadToEnd();
             Thread.Sleep(5000);
             proc.Close();

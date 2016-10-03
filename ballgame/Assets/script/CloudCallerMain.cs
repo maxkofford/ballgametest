@@ -25,7 +25,7 @@ public class CloudCallerMain
         basePath = otherdir;
             string sourcePath = "";
             string targetPath = "";
-            string[] lines = System.IO.File.ReadAllLines(targetFile);
+            string[] lines = System.IO.File.ReadAllLines(basePath +@"\" + targetFile);
             for (int x = 0; x < lines.Length; x += 2)
             {
                 sourcePath = basePath + lines[x];
