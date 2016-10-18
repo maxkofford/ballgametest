@@ -75,7 +75,7 @@
     <Compile Include="Assets\script\CloudCallerMain.cs" />
     <Compile Include="Assets\script\Rotator.cs" />
     <Compile Include="Assets\script\cameracontroller.cs" />
-    <Compile Include="Assets\script\moveball.cs" />
+    <Compile Include="Assets\script\testomatic2\moveball.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\source\sourceinner\atext.txt" />
