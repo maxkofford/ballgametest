@@ -35,6 +35,34 @@ namespace CloudCall
             //string basePath = Directory.GetCurrentDirectory();
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++CURRENT DIRECTORY: " + basePath);
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++regular DIRECTORY: " + Environment.CurrentDirectory);
+
+            foreach (DirectoryInfo tmpdir in dir.GetDirectories())
+            {
+                if (tmpdir.FullName.Contains("Assets"))
+                {
+                    foreach (DirectoryInfo tmpdir2 in tmpdir.GetDirectories())
+                    {
+                        writeLine("+++++++inAssets++++++++++++" + tmpdir2.FullName);
+                        foreach (DirectoryInfo tmpdir3 in tmpdir2.GetDirectories())
+                        {
+                            writeLine("+++++++in" + tmpdir2.FullName + "++++++++++++" + tmpdir3.FullName);
+                        }
+                    }
+                }
+            }
+
+           
+
+
+            curdir = Environment.CurrentDirectory;
+
+            dir = new DirectoryInfo(curdir);
+
+
+            foreach (FileInfo s in dir.GetFiles())
+            {
+                writeLine("" + s.FullName);
+            }
             basePath =dir.Parent.FullName;
             readAllTargets(@"viveImport.txt",basePath);
 
