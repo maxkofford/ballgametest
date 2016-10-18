@@ -14,6 +14,7 @@ public class CloudCallerMain
         public static void readAllTargets(string targetFile)
 
         {
+        /*
         string otherdir = @"D:\githubrepos\Demo_Project";
 
         string curdir = Environment.CurrentDirectory;
@@ -34,7 +35,7 @@ public class CloudCallerMain
             writeLine("------------------Now copying " + sourcePath + " to " + targetPath );
            
             DirectoryCopy(sourcePath, targetPath, true);
-            }
+            }*/
         }
 
 
