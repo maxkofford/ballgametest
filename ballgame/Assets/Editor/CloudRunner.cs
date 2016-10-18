@@ -21,7 +21,10 @@ namespace CloudCall
         {
             foreach (DirectoryInfo tmpdir in dir.GetDirectories())
             {
-                writeLine(dir.FullName);
+                foreach (FileInfo tmpfileinfo in tmpdir.GetFiles())
+                {
+                    writeLine(tmpfileinfo.FullName);
+                }
                 writeAllDirs(tmpdir);
             }
         }
