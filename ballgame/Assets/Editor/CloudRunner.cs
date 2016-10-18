@@ -16,6 +16,16 @@ namespace CloudCall
 {
         }*/
 
+
+           public static void writeAllDirs(DirectoryInfo dir)
+        {
+            foreach (DirectoryInfo tmpdir in dir.GetDirectories())
+            {
+                writeLine(dir.FullName);
+                writeAllDirs(tmpdir);
+            }
+        }
+
         public static void precall(object manifest)
         {
 
@@ -36,20 +46,7 @@ namespace CloudCall
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++CURRENT DIRECTORY: " + basePath);
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++regular DIRECTORY: " + Environment.CurrentDirectory);
 
-            foreach (DirectoryInfo tmpdir in dir.GetDirectories())
-            {
-                if (tmpdir.FullName.Contains("Assets"))
-                {
-                    foreach (DirectoryInfo tmpdir2 in tmpdir.GetDirectories())
-                    {
-                        writeLine("+++++++inAssets++++++++++++" + tmpdir2.FullName);
-                        foreach (DirectoryInfo tmpdir3 in tmpdir2.GetDirectories())
-                        {
-                            writeLine("+++++++in" + tmpdir2.FullName + "++++++++++++" + tmpdir3.FullName);
-                        }
-                    }
-                }
-            }
+            writeAllDirs(dir);
 
            
 
@@ -64,7 +61,7 @@ namespace CloudCall
                 writeLine("" + s.FullName);
             }
             basePath =dir.Parent.FullName;
-            readAllTargets(@"viveImport.txt",basePath);
+           // readAllTargets(@"viveImport.txt",basePath);
 
         }
         public static void CallMe(string exportpath)
@@ -160,7 +157,7 @@ namespace CloudCall
         {
             try
             {
-                for (int x = 0; x < 20; x++)
+                for (int x = 0; x < 2; x++)
                     writeLine("***********************************************************************************************************************************");
 
                 writeLine(Environment.OSVersion.ToString());
