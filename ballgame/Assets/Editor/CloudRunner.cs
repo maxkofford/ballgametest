@@ -4,6 +4,7 @@ using System.IO;
 //using HoloToolkit.Unity;
 using System.Threading;
 using CloudCall;
+using System.Diagnostics;
 
 namespace CloudCall
 {
@@ -20,7 +21,8 @@ namespace CloudCall
 
 
 
-            cmdloglin();
+            //cmdloglin();
+            //ExecuteCommand("--version");
             wrtEnv();
             //writeLine("MANIFEST?++++++++++++++++++++++++++++++" + manifest);
 
@@ -47,14 +49,58 @@ namespace CloudCall
             //  cmdloglin();
 
         }
+
+        /*
+         * 
+         * public static void ExecuteCommand(string command)
+        {
+            Process proc = new System.Diagnostics.Process ();
+            proc.StartInfo.FileName = "/bin/bash";
+            proc.StartInfo.Arguments = "-c \" " + command + " \"";
+            proc.StartInfo.UseShellExecute = false; 
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.Start ();
+
+            while (!proc.StandardOutput.EndOfStream) {
+                Console.WriteLine (proc.StandardOutput.ReadLine ());
+            }
+        }
+
+        public static void Main (string[] args)
+        {
+            ExecuteCommand("gnome-terminal -x bash -ic 'cd $HOME; ls; bash'");
+        }
+         */
+        public static void ExecuteCommand(string command)
+        {
+            writeLine("++++++++++++++++++++++++++++++++++++++++++++++++PREBASH");
+            Process proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "/bin/bash";
+            proc.StartInfo.Arguments = "-c \" " + command + " \"";
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.Start();
+            writeLine("++++++++++++++++++++++++++++++++++++++++++++++++POSTBASH");
+
+            while (!proc.StandardOutput.EndOfStream)
+            {
+                writeLine(proc.StandardOutput.ReadLine());
+            }
+            proc.Close();
+            proc.WaitForExit();
+        }
+
         public static void cmdloglin()
         {
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++PREBASH");
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo() { FileName = "/bin/bash", Arguments = " --version", };
             System.Diagnostics.Process proc = new System.Diagnostics.Process() { StartInfo = startInfo, };
             proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
             proc.Start();
             writeLine("++++++++++++++++++++++++++++++++++++++++++++++++POSTBASH");
+
             string output = proc.StandardOutput.ReadToEnd();
             Thread.Sleep(5000);
             proc.Close();
