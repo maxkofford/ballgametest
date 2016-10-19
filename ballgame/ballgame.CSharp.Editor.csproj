@@ -125,7 +125,6 @@
     <Compile Include="Assets\Editor\testCalled.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\script\testomatic2\hayhayhay.txt" />
     <None Include="Assets\source\sourceinner\atext.txt" />
     <None Include="Assets\source\sourceinner2\atext2.txt" />
     <None Include="Assets\source\sourceinner2\innerinner\atext3 - Copy (2).txt" />
