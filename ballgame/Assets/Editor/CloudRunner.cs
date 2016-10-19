@@ -54,15 +54,7 @@ namespace CloudCall
            
 
 
-            curdir = Environment.CurrentDirectory;
-
-            dir = new DirectoryInfo(curdir);
-
-
-            foreach (FileInfo s in dir.GetFiles())
-            {
-                writeLine("" + s.FullName);
-            }
+          
             basePath =dir.Parent.FullName;
            // readAllTargets(@"viveImport.txt",basePath);
 
